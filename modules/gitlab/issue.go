@@ -1,6 +1,7 @@
 package gitlab
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 )
@@ -15,7 +16,7 @@ type Issue struct {
 	Milestone   *Milestone `json:"milestone"`
 	Id          int64      `json:"id"`
 	Iid         int64      `json:"iid"`
-	Labels      *[]string   `json:"labels"`
+	Labels      *[]string  `json:"labels"`
 	ProjectId   int64      `json:"project_id"`
 	State       string     `json:"state"`
 	Title       string     `json:"title"`
@@ -27,8 +28,8 @@ type Issue struct {
 type IssueRequest struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
-	AssigneeId  *int64  `json:"assignee_id"`
-	MilestoneId *int64  `json:"milestone_id"`
+	AssigneeId  *int64 `json:"assignee_id"`
+	MilestoneId *int64 `json:"milestone_id"`
 	Labels      string `json:"labels"`
 	StateEvent  string `json:"state_event,omitempty"`
 }
@@ -49,13 +50,18 @@ type IssueListOptions struct {
 //
 // GitLab API docs: http://doc.gitlab.com/ce/api/issues.html#list-issues
 func (g *GitlabContext) ListIssues(project_id string, o *IssueListOptions) ([]*Issue, error) {
-	path := getUrl([]string{"projects", url.QueryEscape(project_id), "issues"})
-	u, err := addOptions(path, o)
+	fmt.Println("=============================================")
+	fmt.Println("=============================================")
+	fmt.Println("=============================================")
+	fmt.Println("=============================================")
+	path := getUrl([]string{"groups", "2", "issues?labels=kanban&state=opened"})
+	/*u, err := addOptions(path, o)
+
 	if err != nil {
 		return nil, err
-	}
-
-	req, _ := http.NewRequest("GET", u, nil)
+	}*/
+	fmt.Println("path")
+	req, _ := http.NewRequest("GET", path, nil)
 
 	var ret []*Issue
 	if _, err := g.Do(req, &ret); err != nil {

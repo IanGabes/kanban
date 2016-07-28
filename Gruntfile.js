@@ -32,13 +32,13 @@ module.exports = function (grunt) {
             }
         },
 
-        uglify: {
+/*        uglify: {
             dist: {
                 files: {
                     "web/assets/js/app.min.js": ["web/assets/js/app.js"]
                 }
             }
-        },
+        },*/
 
         copy: {
             main: {
@@ -254,12 +254,12 @@ watch: {
         concat: {
             files: ['src/**/*.js'],
             tasks: ['concat']
-        },
+        }/*,
 
         uglify: {
             files: ['web/assets/js/app.js'],
             tasks: ['uglify']
-        }
+        }*/
     }
 });
 
@@ -267,8 +267,8 @@ grunt.loadNpmTasks('grunt-sass');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-copy');
 grunt.loadNpmTasks('grunt-contrib-concat');
-grunt.loadNpmTasks('grunt-contrib-uglify');
+/*grunt.loadNpmTasks('grunt-contrib-uglify');*/
 
-grunt.registerTask('build', ['sass', 'copy', 'concat', 'uglify']);
+grunt.registerTask('build', ['sass', 'copy', 'concat', /*'uglify'*/]);
 grunt.registerTask('default', ['build', 'watch']);
 };

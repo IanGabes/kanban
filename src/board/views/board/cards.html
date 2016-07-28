@@ -61,12 +61,15 @@
                                 <div class="large-10 medium-10 small-10 columns">
                                     <h6>
                                         <a data-ui-sref="board.cards.view({project_id: state.params.project_id, project_path: state.params.project_path, issue_id: card.iid})"
-                                           data-no-drag>
-                                            <b>Issue #{{card.iid}}</b>
+                                           <data-no-drag></data-no-drag>
+                                            <b>{{card.title}}</b>
                                         </a>
                                     </h6>
                                     <h6>
-                                        {{card.title}}
+                                        Assignee: {{card.assignee.name}}
+                                    </h6>
+                                    <h6>
+                                        Project: {{state.params.project_id}}
                                     </h6>
                                     <div class="row collapse">
                                     <span class="label" data-ng-repeat="label in card.viewLabels track by label.name"
