@@ -32,6 +32,7 @@
                                 LabelService.list(project.id, withCache),
                                 $http.get('/api/cards', {
                                     params: {
+                                        group_id: path.split("/")[0],
                                         project_id: project.id
                                     }
                                 })

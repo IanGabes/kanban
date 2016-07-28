@@ -14,7 +14,7 @@ type DataSource interface {
 }
 
 type CardSource interface {
-	ListCards(project_id string) ([]*models.Card, error)
+	ListCards(group_id string, project_id string) ([]*models.Card, error)
 	CreateCard(*models.CardRequest) (*models.Card, int, error)
 	UpdateCard(*models.CardRequest) (*models.Card, int, error)
 	DeleteCard(*models.CardRequest) (*models.Card, int, error)

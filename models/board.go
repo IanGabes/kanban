@@ -16,6 +16,7 @@ type Board struct {
 
 type BoardRequest struct {
 	BoardId string `json:"project_id"`
+	GroupId string `json:"group_id"`
 }
 
 // Board represents a namespace kanban board.

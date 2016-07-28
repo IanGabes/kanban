@@ -3,11 +3,12 @@ package gitlab
 import (
 	"encoding/json"
 	"fmt"
-	"gitlab.com/leanlabsio/kanban/models"
-	"gitlab.com/leanlabsio/kanban/modules/gitlab"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"gitlab.com/leanlabsio/kanban/models"
+	"gitlab.com/leanlabsio/kanban/modules/gitlab"
 )
 
 var (
@@ -16,7 +17,7 @@ var (
 )
 
 // ListCards returns list card
-func (ds GitLabDataSource) ListCards(board_id string) ([]*models.Card, error) {
+func (ds GitLabDataSource) ListCards(group_id string, board_id string) ([]*models.Card, error) {
 	var b []*models.Card
 	op := &gitlab.IssueListOptions{
 		State: "opened",
@@ -24,7 +25,7 @@ func (ds GitLabDataSource) ListCards(board_id string) ([]*models.Card, error) {
 	op.Page = "1"
 	op.PerPage = "200"
 
-	r, err := ds.client.ListIssues(board_id, op)
+	r, err := ds.client.ListIssues(group_id, board_id, op)
 
 	if err != nil {
 		return nil, err
