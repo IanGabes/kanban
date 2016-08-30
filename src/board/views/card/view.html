@@ -12,7 +12,7 @@
 
             <h3 data-ng-show="isEdit">Edit issue</h3>
             <h3 class="subheader hide-for-medium-down" data-ng-show="! isEdit">
-                <a data-ng-href="{{card_url}}/issues/{{card.iid}}" target="_blank">#{{card.iid}}</a> {{ card.title }}
+                <a data-ng-href="{{card_url}}{{card.project_name}}/issues/{{card.iid}}" target="_blank">#{{card.iid}}</a> {{ card.title }}
             </h3>
 
         <div data-ng-show="! isEdit" data-ll-markdown data-markdown="card.description">

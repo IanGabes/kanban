@@ -29,7 +29,7 @@
                     });
                 });
 
-                $scope.card_url = host_url + "/" + $stateParams.project_path;
+                $scope.card_url = host_url + "/";
                 $scope.card_properties = {};
                 $scope.commentFormData = {};
                 $scope.blockedFormData = {};

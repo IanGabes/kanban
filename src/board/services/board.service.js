@@ -37,11 +37,19 @@
                                     }
                                 })
                             ]).then(function(results) {
+                                var boards = this.getBoards();
                                 var board = new Board(results[0], results[1].data.data, project);
                                 this.boards[path] = board;
                                 this.boardIdIndex[board.project.id] = board.project.path_with_namespace;
                                 this.boardPathIndex[board.project.path_with_namespace] = board.project.id;
-
+                                var boardListPromise = this.getBoards();
+                                boardListPromise.then(function(boardList){
+                                    var issues = board.issues;
+                                    for(var issue in issues){
+                                        issues[issue].project_name = boardList[issues[issue].project_id].name;
+                                    }
+                                })
+                                
                                 return this.boards[path];
                             }.bind(this));
 
