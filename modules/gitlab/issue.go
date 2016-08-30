@@ -50,8 +50,8 @@ type IssueListOptions struct {
 //
 // GitLab API docs: http://doc.gitlab.com/ce/api/issues.html#list-issues
 func (g *GitlabContext) ListIssues(group_id string, project_id string, o *IssueListOptions) ([]*Issue, error) {
-	 url.QueryEscape(project_id)
-	path := getUrl([]string{"groups", url.QueryEscape(project_id), "issues?labels=kanban&state=opened"})
+	url.QueryEscape(project_id)
+	path := getUrl([]string{"groups", url.QueryEscape(project_id), "issues?labels=kanban&state=opened&per_page=100"})
 	/*u, err := addOptions(path, o)
 
 	if err != nil {
@@ -61,10 +61,10 @@ func (g *GitlabContext) ListIssues(group_id string, project_id string, o *IssueL
 	req, _ := http.NewRequest("GET", path, nil)
 
 	var ret []*Issue
+
 	if _, err := g.Do(req, &ret); err != nil {
 		return nil, err
 	}
-
 	return ret, nil
 }
 
