@@ -47,6 +47,7 @@
                                     var issues = board.issues;
                                     for(var issue in issues){
                                         issues[issue].project_name = boardList[issues[issue].project_id].name;
+                                        issues[issue].proj_id = boardList[issues[issue].project_id].id;
                                     }
                                 })
                                 
@@ -63,10 +64,10 @@
                     var path = this.boardIdIndex[id];
                     return this.get(path);
                 },
-                getCard: function(boardId, cardId) {
+                getCard: function(boardId, cardId, project_name) {
                     return this.get(boardId).then(function(result) {
                         return _.find(result.issues, function(card) {
-                            return card.iid == cardId;
+                            return card.iid == cardId && card.project_name == project_name;
                         });
                     });
                 },

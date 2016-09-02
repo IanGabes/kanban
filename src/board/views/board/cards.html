@@ -60,7 +60,7 @@
                             >
                                 <div class="large-10 medium-10 small-10 columns">
                                     <h6>
-                                        <a data-ui-sref="board.cards.view({project_id: state.params.project_id, project_path: state.params.project_path, issue_id: card.iid})"
+                                        <a data-ui-sref="board.cards.view({other: card.project_name, project_id: card.proj_id, project_path: state.params.project_path, issue_id: card.iid})"
                                            <data-no-drag></data-no-drag>
                                             <b>{{card.title}}</b>
                                         </a>

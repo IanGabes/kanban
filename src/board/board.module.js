@@ -119,7 +119,7 @@
                     }
                 })
                 .state('board.cards.view', {
-                    url: '/issues/:issue_id',
+                    url: '/issues/:issue_id/:other',
                     views: {
                         'modal@board': {
                             templateUrl: 'assets/html/board/views/card/view.html',

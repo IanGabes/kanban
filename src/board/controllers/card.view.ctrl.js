@@ -39,14 +39,14 @@
                 $scope.newCard = {};
 
                 var getCommentHashKey = function() {
-                    return $scope.card.project_id + ":card:" + $scope.card.iid + ":comment";
+                    return $stateParams.project_id + ":card:" + $scope.card.iid + ":comment";
                 };
 
                 var getCardHashKey = function() {
-                    return $scope.card.project_id + ":card:" + $scope.card.iid;
+                    return $stateParams.project_id + ":card:" + $scope.card.iid;
                 };
 
-                BoardService.getCard($stateParams.project_path, $stateParams.issue_id).then(function(card) {
+                BoardService.getCard($stateParams.project_path, $stateParams.issue_id, $state.params.other).then(function(card) {
                     $scope.card = card;
 
                     CommentService.list(card.project_id, card.id).then(function(data) {
