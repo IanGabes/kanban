@@ -1,9 +1,10 @@
 package board
 
 import (
+	"net/http"
+
 	"gitlab.com/leanlabsio/kanban/models"
 	"gitlab.com/leanlabsio/kanban/modules/middleware"
-	"net/http"
 )
 
 // ListMembers gets a list of member on board accessible by the authenticated user.

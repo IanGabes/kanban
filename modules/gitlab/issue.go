@@ -1,7 +1,6 @@
 package gitlab
 
 import (
-	"fmt"
 	"net/http"
 	"net/url"
 )
@@ -57,7 +56,7 @@ func (g *GitlabContext) ListIssues(group_id string, project_id string, o *IssueL
 	if err != nil {
 		return nil, err
 	}*/
-	fmt.Println("path")
+
 	req, _ := http.NewRequest("GET", path, nil)
 
 	var ret []*Issue

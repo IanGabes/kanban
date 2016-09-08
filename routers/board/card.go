@@ -11,9 +11,7 @@ import (
 // ListCards gets a list of card on board accessible by the authenticated user.
 func ListCards(ctx *middleware.Context) {
 	cards, err := ctx.DataSource.ListCards(ctx.Query("project_id"), ctx.Query("group_id"))
-	group := ctx.Query("group_id")
-	fmt.Println("==================================")
-	fmt.Println(group)
+
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, &models.ResponseError{
 			Success: false,

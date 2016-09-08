@@ -43,8 +43,10 @@ func (g *GitlabContext) ListProjectMembers(project_id string, o *ListOptions) ([
 //
 // GitLab API docs:
 // http://doc.gitlab.com/ce/api/groups.html#list-group-members
-func (g *GitlabContext) ListGroupMembers(group_id string, o *ListOptions) ([]*User, error)  {
+func (g *GitlabContext) ListGroupMembers(group_id string, o *ListOptions) ([]*User, error) {
+	o.PerPage = "100"
 	path := getUrl([]string{"groups", group_id, "members"})
+
 	u, err := addOptions(path, o)
 	if err != nil {
 		return nil, err
