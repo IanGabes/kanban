@@ -28,11 +28,12 @@
                             }
                         }).then(function(project) {
                             project = project.data.data;
+                            
                             this.boards[path] = $q.all([
                                 LabelService.list(project.id, withCache),
                                 $http.get('/api/cards', {
                                     params: {
-                                        group_id: path.split("/")[0],
+                                        group_id: project.path_with_namespace.split("/")[0],
                                         project_id: project.id
                                     }
                                 })
@@ -67,33 +68,41 @@
                 getCard: function(boardId, cardId, project_name) {
                     return this.get(boardId).then(function(result) {
                         return _.find(result.issues, function(card) {
-                            return card.iid == cardId && card.project_name == project_name;
+                            return card.iid == cardId && card.pro4ject_name == project_name;
                         });
                     });
                 },
                 createCard: function(data) {
                     return $http.post('/api/card', data).then(function(newCard) {});
                 },
+                sanitize: function(json){
+                    for(var key in json){
+                        if(json.hasOwnProperty(key) && json[key] === null){
+                            delete json[key];
+                        }
+                    }
+                    return json;
+                },
                 updateCard: function(card) {
-                    return $http.put('/api/card', {
+                    return $http.put('/api/card', this.sanitize({
                         issue_id: card.id,
                         project_id: card.project_id,
-                        assignee_id: card.assignee_id,
-                        milestone_id: card.milestone_id,
+                        assignee_id: card.assignee ? card.assignee.id : null,
+                        milestone_id: card.milestone ? card.assignee.id : null,
                         title: card.title,
                         labels: card.labels.join(', '),
                         todo: card.todo,
                         description: card.description,
                         properties: card.properties
-                    }).then(function(result) {});
+                    })).then(function(result) {});
                 },
                 removeCard: function(card) {
                     return $http.delete('/api/card', {
                         data: {
                             issue_id: card.id,
                             project_id: card.project_id,
-                            assignee_id: card.assignee_id,
-                            milestone_id: card.milestone_id,
+                            assignee_id: card.assignee ? card.assignee.id : null,
+                            milestone_id: card.milestone ? card.assignee.id : null,
                             title: card.title,
                             labels: card.labels.join(', '),
                             todo: card.todo,
@@ -107,11 +116,11 @@
                     });
                 },
                 moveCard: function(card, oldStage, newStage) {
-                    return $http.put('/api/card/move', {
+                    return $http.put('/api/card/move', this.sanitize({
                         project_id: card.project_id,
                         issue_id: card.id,
-                        assignee_id: card.assignee_id,
-                        milestone_id: card.milestone_id,
+                        assignee_id: card.assignee ? card.assignee.id : null,
+                        milestone_id: card.milestone ? card.assignee.id : null,
                         title: card.title,
                         labels: card.labels.join(', '),
                         todo: card.todo,
@@ -121,7 +130,7 @@
                             source: oldStage,
                             dest: newStage
                         }
-                    });
+                    }));
                 },
                 getBoards: function() {
                     var _this = this;
