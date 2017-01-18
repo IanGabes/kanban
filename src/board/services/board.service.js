@@ -68,7 +68,7 @@
                 getCard: function(boardId, cardId, project_name) {
                     return this.get(boardId).then(function(result) {
                         return _.find(result.issues, function(card) {
-                            return card.iid == cardId && card.pro4ject_name == project_name;
+                            return card.iid == cardId && card.project_name == project_name;
                         });
                     });
                 },
