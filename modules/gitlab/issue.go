@@ -48,23 +48,24 @@ type IssueListOptions struct {
 // takes pagination parameters page and per_page to restrict the list of issues.
 //
 // GitLab API docs: http://doc.gitlab.com/ce/api/issues.html#list-issues
-func (g *GitlabContext) ListIssues(group_id string, project_id string, o *IssueListOptions) ([]*Issue, error) {
+func (g *GitlabContext) ListIssues(group_id string, project_id string, o *IssueListOptions) ([]*Issue, *CollectionOptions, error) {
 	url.QueryEscape(project_id)
-	path := getUrl([]string{"groups", url.QueryEscape(project_id), "issues?labels=kanban&state=opened&per_page=100"})
-	/*u, err := addOptions(path, o)
+	path := getUrl([]string{"groups", url.QueryEscape(project_id), "issues"})
+	u, err := addOptions(path, o)
 
 	if err != nil {
-		return nil, err
-	}*/
+		return nil, nil, err
+	}
 
-	req, _ := http.NewRequest("GET", path, nil)
+	req, _ := http.NewRequest("GET", u, nil)
 
 	var ret []*Issue
-
-	if _, err := g.Do(req, &ret); err != nil {
-		return nil, err
+	resp, err := g.Do(req, &ret)
+	if err != nil {
+		return nil, nil, err
 	}
-	return ret, nil
+
+	return ret, NewCollectionOption(resp), nil
 }
 
 // CreateIssue creates a new project issue.
