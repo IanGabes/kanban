@@ -23,17 +23,29 @@ func (ds GitLabDataSource) ListCards(group_id string, board_id string) ([]*model
 		State: "opened",
 	}
 	op.Page = "1"
-	op.PerPage = "200"
+	op.PerPage = "100"
 
-	r, err := ds.client.ListIssues(group_id, board_id, op)
-
-	if err != nil {
-		return nil, err
+	for op.Page != "" {
+		r, opts, err := ds.client.ListIssues(group_id, board_id, op)
+		if err != nil {
+			return nil, err
+		}
+		for _, d := range r {
+			b = append(b, mapCardFromGitlab(d))
+		}
+		op.Page = opts.NextPage
 	}
 
-	for _, d := range r {
-		b = append(b, mapCardFromGitlab(d))
-	}
+	//
+	//	r, err := ds.client.ListIssues(group_id, board_id, op)
+	//
+	//	if err != nil {
+	//		return nil, err
+	//	}
+
+	//	for _, d := range r {
+	//		b = append(b, mapCardFromGitlab(d))
+	//	}
 
 	return b, nil
 }
