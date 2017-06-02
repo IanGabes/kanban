@@ -23,7 +23,7 @@ func (ds GitLabDataSource) ListCards(group_id string, board_id string) ([]*model
 		State: "opened",
 	}
 	op.Page = "1"
-	op.PerPage = "20"
+	op.PerPage = "100"
 
 	for op.Page != "" {
 		r, opts, err := ds.client.ListIssues(group_id, board_id, op)
